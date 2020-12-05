@@ -1,7 +1,7 @@
 {
-  "name": "tsquare/microrouter",
+  "name": "tsquare/micro-router",
   "description": "A minimal PHP router for prototyping.",
-  "type": "project",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
