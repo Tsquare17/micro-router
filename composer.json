@@ -27,5 +27,14 @@
     "sniff": "phpcs -p -s --colors --standard=phpcs.xml",
     "test": "vendor/bin/phpunit --colors=always",
     "check": "composer sniff && composer test"
+  },
+  "archive": {
+    "exclude": [
+      "*",
+      ".*",
+      "!/src/*",
+      "!README.md",
+      "!composer.json"
+    ]
   }
 }
