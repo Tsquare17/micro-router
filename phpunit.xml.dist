@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<phpunit
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+>
+    <testsuites>
+        <testsuite name="tests">
+            <directory suffix=".php">./tests/</directory>
+            <exclude>tests/Fixtures/</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>
