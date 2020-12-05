@@ -4,7 +4,7 @@
 
 #### Installation
 
-    composer require tsquare\micro-router --prefer-source
+    composer require tsquare\micro-router
 
 #### Usage:
 
