@@ -31,7 +31,7 @@ class MicroRouter
     public function __construct(string $viewsPath)
     {
         if (!is_dir($viewsPath)) {
-            throw new InvalidPathException('');
+            throw new InvalidPathException('View path not found');
         }
 
         $this->viewsPath = rtrim($viewsPath, '/') . '/';
