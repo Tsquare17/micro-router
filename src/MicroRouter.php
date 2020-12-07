@@ -27,6 +27,7 @@ class MicroRouter
      * MicroRouter constructor.
      * @param string $templatesPath;
      * @throws FileNotFoundException
+     * @throws InvalidPathException
      */
     public function __construct(string $templatesPath)
     {
@@ -80,10 +81,6 @@ class MicroRouter
             return $this->templatesPath . 'index.php';
         }
 
-        if (is_file($this->templatesPath . '404.php')) {
-            return $this->templatesPath . '404.php';
-        }
-
         if (strpos(strrev($this->uri), 'php.') === 0) {
             return $this->templatesPath . $this->uri;
         }
@@ -91,6 +88,10 @@ class MicroRouter
         $info = pathinfo($this->uri);
         if (isset($info['extension']) && $info['extension'] !== null) {
             return $this->templatesPath . $this->uri;
+        }
+
+        if (is_file($this->templatesPath . '404.php')) {
+            return $this->templatesPath . '404.php';
         }
 
         return null;
@@ -104,7 +105,7 @@ class MicroRouter
      */
     private function validateRequestedPath($path): bool
     {
-        $realPath = realpath($this->templatesPath);
+        $realPath = realpath($path);
 
         return $path && strpos($path, $realPath) === 0;
     }

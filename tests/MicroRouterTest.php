@@ -70,4 +70,17 @@ class MicroRouterTest extends TestCase
 
         new MicroRouter(__DIR__);
     }
+
+    /**
+     * @test
+     * @runInSeparateProcess
+     */
+    public function exception_is_thrown_if_requested_path_is_invalid(): void
+    {
+        $_SERVER['REQUEST_URI'] = '/../MicroRouterTest.php';
+
+        $this->expectException(InvalidPathException::class);
+
+        new MicroRouter($this->templatesPath);
+    }
 }
