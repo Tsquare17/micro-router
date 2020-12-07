@@ -21,7 +21,7 @@ use Tsquare\MicroRouter;
 
 try {
 
-    new MicroRouter(dirname(__FILE__, 2) . '/views');
+    new MicroRouter(dirname(__FILE__, 2) . '/templates');
 
 } catch (InvalidPathException $e) {
 

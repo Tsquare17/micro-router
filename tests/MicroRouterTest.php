@@ -9,13 +9,13 @@ use Tsquare\Exception\InvalidPathException;
 
 class MicroRouterTest extends TestCase
 {
-    private $viewPath = __DIR__ . '/Fixtures';
+    private $templatesPath = __DIR__ . '/Fixtures';
 
     private function routeOutputs($route, $outputs): void
     {
         $_SERVER['REQUEST_URI'] = $route;
 
-        new MicroRouter($this->viewPath);
+        new MicroRouter($this->templatesPath);
 
         $this->expectOutputString($outputs);
     }
@@ -58,7 +58,10 @@ class MicroRouterTest extends TestCase
         $this->routeOutputs('/foo/', 'foo');
     }
 
-    /** @test */
+    /**
+     * @test
+     * @runInSeparateProcess
+     */
     public function exception_is_thrown_if_no_match_and_no_404_file_exists(): void
     {
         $_SERVER['REQUEST_URI'] = 'no matching file';
