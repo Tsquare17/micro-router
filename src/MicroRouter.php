@@ -50,11 +50,10 @@ class MicroRouter
 
         if ($route) {
             include $route;
-            return;
+        } else {
+            header('HTTP/1.0 404 Not Found');
+            throw new FileNotFoundException('404 - File not found');
         }
-
-        header('HTTP/1.0 404 Not Found');
-        throw new FileNotFoundException('404 - File not found');
     }
 
     /**
@@ -71,14 +70,17 @@ class MicroRouter
      */
     private function matchRequest(): ?string
     {
-        $file = $this->templatesPath . $this->uri . '.php';
-
-        if (is_file($file)) {
-            return $file;
+        if (is_file($this->templatesPath . $this->uri . '.php')) {
+            return $this->templatesPath . $this->uri . '.php';
         }
 
         if ($this->uri === '' && is_file($this->templatesPath . 'index.php')) {
             return $this->templatesPath . 'index.php';
+        }
+
+
+        if (is_file($this->templatesPath . $this->uri . '/index.php')) {
+            return $this->templatesPath . $this->uri . '/index.php';
         }
 
         if (strpos(strrev($this->uri), 'php.') === 0) {

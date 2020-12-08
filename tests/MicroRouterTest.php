@@ -83,4 +83,10 @@ class MicroRouterTest extends TestCase
 
         new MicroRouter($this->templatesPath);
     }
+
+    /** @test */
+    public function matches_directory_index(): void
+    {
+        $this->routeOutputs('/dir', 'index');
+    }
 }
