@@ -78,7 +78,6 @@ class MicroRouter
             return $this->templatesPath . 'index.php';
         }
 
-
         if (is_file($this->templatesPath . $this->uri . '/index.php')) {
             return $this->templatesPath . $this->uri . '/index.php';
         }
