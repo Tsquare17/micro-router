@@ -70,27 +70,28 @@ class MicroRouter
      */
     private function matchRequest(): ?string
     {
+        // URI matching the name of the file.
         if (is_file($this->templatesPath . $this->uri . '.php')) {
             return $this->templatesPath . $this->uri . '.php';
         }
 
-        if ($this->uri === '' && is_file($this->templatesPath . 'index.php')) {
-            return $this->templatesPath . 'index.php';
-        }
-
+        // URI matches a directory where index.php exists.
         if (is_file($this->templatesPath . $this->uri . '/index.php')) {
-            return $this->templatesPath . $this->uri . '/index.php';
+            return $this->templatesPath . $this->uri . ($this->uri === '' ? '' : '/') . 'index.php';
         }
 
+        // URI matches a php file.
         if (strpos(strrev($this->uri), 'php.') === 0) {
             return $this->templatesPath . $this->uri;
         }
 
+        // URI contains a file extension.
         $info = pathinfo($this->uri);
         if (isset($info['extension']) && $info['extension'] !== null) {
             return $this->templatesPath . $this->uri;
         }
 
+        // A 404 template exists.
         if (is_file($this->templatesPath . '404.php')) {
             return $this->templatesPath . '404.php';
         }
