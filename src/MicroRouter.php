@@ -87,7 +87,11 @@ class MicroRouter
 
         // URI contains a file extension.
         $info = pathinfo($this->uri);
-        if (isset($info['extension']) && $info['extension'] !== null) {
+        if (
+            isset($info['extension'])
+            && $info['extension'] !== null
+            && file_exists($this->templatesPath . $this->uri)
+        ) {
             return $this->templatesPath . $this->uri;
         }
 
