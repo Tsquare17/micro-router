@@ -24,6 +24,18 @@ class MicroRouter
     protected $uri;
 
     /**
+     * Path to partial templates, within the templates path.
+     * @var $partialsPath
+     */
+    protected $partialsPath = null;
+
+    /**
+     * The route to render.
+     * @var $route
+     */
+    protected $route = null;
+
+    /**
      * MicroRouter constructor.
      * @param string $templatesPath;
      * @throws FileNotFoundException
@@ -39,7 +51,7 @@ class MicroRouter
 
         $this->setURI();
 
-        $route = $this->matchRequest();
+        $route = $this->getTemplate($this->uri);
 
         $validPath = $this->validateRequestedPath($route);
 
@@ -48,12 +60,12 @@ class MicroRouter
             throw new InvalidPathException('Invalid request');
         }
 
-        if ($route) {
-            include $route;
-        } else {
+        if (!$route) {
             header('HTTP/1.0 404 Not Found');
             throw new FileNotFoundException('404 - File not found');
         }
+
+        $this->route = $route;
     }
 
     /**
@@ -66,33 +78,34 @@ class MicroRouter
 
     /**
      * Match the request with a file.
+     * @param $template
      * @return ?string
      */
-    private function matchRequest(): ?string
+    private function getTemplate(string $template): ?string
     {
         // URI matching the name of the file.
-        if (is_file($this->templatesPath . $this->uri . '.php')) {
-            return $this->templatesPath . $this->uri . '.php';
+        if (is_file($this->templatesPath . $template . '.php')) {
+            return $this->templatesPath . $template . '.php';
         }
 
         // URI matches a directory where index.php exists.
-        if (is_file($this->templatesPath . $this->uri . '/index.php')) {
-            return $this->templatesPath . $this->uri . ($this->uri === '' ? '' : '/') . 'index.php';
+        if (is_file($this->templatesPath . $template . '/index.php')) {
+            return $this->templatesPath . $template . ($template === '' ? '' : '/') . 'index.php';
         }
 
         // URI matches a php file.
-        if (strpos(strrev($this->uri), 'php.') === 0) {
-            return $this->templatesPath . $this->uri;
+        if (strpos(strrev($template), 'php.') === 0) {
+            return $this->templatesPath . $template;
         }
 
         // URI contains a file extension.
-        $info = pathinfo($this->uri);
+        $info = pathinfo($template);
         if (
             isset($info['extension'])
             && $info['extension'] !== null
-            && file_exists($this->templatesPath . $this->uri)
+            && file_exists($this->templatesPath . $template)
         ) {
-            return $this->templatesPath . $this->uri;
+            return $this->templatesPath . $template;
         }
 
         // A 404 template exists.
@@ -114,5 +127,52 @@ class MicroRouter
         $realPath = realpath($path);
 
         return $path && strpos($path, $realPath) === 0;
+    }
+
+    /**
+     * Set the path to partials.
+     *
+     * @param string $path
+     */
+    public function setPartialsPath(string $path): void
+    {
+        $this->partialsPath = trim($path, '/');
+    }
+
+    /**
+     * Include a partial.
+     *
+     * @param $partial
+     * @param array $data
+     */
+    public function includePartial($partial, $data = []): void
+    {
+        render(
+            $this->partialsPath
+            ? $this->templatesPath . $this->partialsPath . '/' . $partial . '.php'
+            : $this->templatesPath . $partial . '.php',
+            $this,
+            $data
+        );
+    }
+
+    /**
+     * Dispatch.
+     * @param array $data
+     */
+    public function dispatch($data = []): void
+    {
+        if (!function_exists('Tsquare\\render')) {
+            function render($route, $router, $data = [])
+            {
+                foreach ($data as $var => $val) {
+                    $$var = $val;
+                }
+
+                include $route;
+            }
+        }
+
+        render($this->route, $this, $data);
     }
 }

@@ -21,7 +21,12 @@ use Tsquare\MicroRouter;
 
 try {
 
-    new MicroRouter(dirname(__FILE__, 2) . '/templates');
+    $router = new MicroRouter(dirname(__FILE__, 2) . '/templates');
+
+    // Set the path to partials, relative to the templates path.
+    $router->setPartialsPath('partials-path');
+
+    $router->dispatch();
 
 } catch (InvalidPathException $e) {
 
@@ -32,4 +37,22 @@ try {
     echo '<h1>' . $e->getMessage() . '</h1>';
 
 }
+```
+
+- Within a template, you can include a partial, and pass it some data.
+```php
+<?php
+
+$router->includePartial('partial', ['variableName' => 'value']);
+
+```
+
+- Your may need to include rewrite rules in .htaccess.
+```apacheconfig
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
 ```

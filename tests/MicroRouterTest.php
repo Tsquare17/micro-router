@@ -15,7 +15,11 @@ class MicroRouterTest extends TestCase
     {
         $_SERVER['REQUEST_URI'] = $route;
 
-        new MicroRouter($this->templatesPath);
+        $router = new MicroRouter($this->templatesPath);
+
+        $router->setPartialsPath('partials');
+
+        $router->dispatch();
 
         $this->expectOutputString($outputs);
     }
@@ -81,12 +85,28 @@ class MicroRouterTest extends TestCase
 
         $this->expectException(InvalidPathException::class);
 
-        new MicroRouter($this->templatesPath);
+        $router = new MicroRouter($this->templatesPath);
+
+        $router->dispatch();
     }
 
     /** @test */
     public function matches_directory_index(): void
     {
         $this->routeOutputs('/dir', 'index');
+    }
+
+    /**
+     * @test
+     */
+    public function can_get_template_from_inside_template(): void
+    {
+        $this->routeOutputs('/partial-test', 'included partial');
+    }
+
+    /** @test */
+    public function can_pass_vars_to_partials(): void
+    {
+        $this->routeOutputs('/partial-test-with-vars', 'bar');
     }
 }
