@@ -165,9 +165,7 @@ class MicroRouter
         if (!function_exists('Tsquare\\render')) {
             function render($route, $router, $data = [])
             {
-                foreach ($data as $var => $val) {
-                    $$var = $val;
-                }
+                extract($data, EXTR_OVERWRITE);
 
                 include $route;
             }
