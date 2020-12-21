@@ -24,10 +24,10 @@ class MicroRouter
     protected $uri;
 
     /**
-     * Path to partial templates, within the templates path.
-     * @var $partialsPath
+     * Prefix the MicroRouter::prefix() with a directory within the templates path.
+     * @var $includePrefix
      */
-    protected $partialsPath = null;
+    protected $includePrefix = null;
 
     /**
      * The route to render.
@@ -134,23 +134,23 @@ class MicroRouter
      *
      * @param string $path
      */
-    public function setPartialsPath(string $path): void
+    public function setIncludePrefix(string $path): void
     {
-        $this->partialsPath = trim($path, '/');
+        $this->includePrefix = trim($path, '/');
     }
 
     /**
-     * Include a partial.
+     * Include a template.
      *
-     * @param $partial
+     * @param $template
      * @param array $data
      */
-    public function includePartial($partial, $data = []): void
+    public function include($template, $data = []): void
     {
         render(
-            $this->partialsPath
-            ? $this->templatesPath . $this->partialsPath . '/' . $partial . '.php'
-            : $this->templatesPath . $partial . '.php',
+            $this->includePrefix
+            ? $this->templatesPath . $this->includePrefix . '/' . $template . '.php'
+            : $this->templatesPath . $template . '.php',
             $this,
             $data
         );

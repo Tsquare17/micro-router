@@ -2,4 +2,4 @@
 
 echo 'included ';
 
-$router->includePartial('partial');
+$router->include('partial');

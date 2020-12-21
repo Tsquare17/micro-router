@@ -1,3 +1,3 @@
 <?php
 
-$router->includePartial('partial-with-vars', ['foo' => 'bar']);
+$router->include('partial-with-vars', ['foo' => 'bar']);

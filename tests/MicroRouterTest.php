@@ -17,7 +17,7 @@ class MicroRouterTest extends TestCase
 
         $router = new MicroRouter($this->templatesPath);
 
-        $router->setPartialsPath('partials');
+        $router->setIncludePrefix('partials');
 
         $router->dispatch();
 

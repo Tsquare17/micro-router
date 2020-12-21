@@ -23,8 +23,8 @@ try {
 
     $router = new MicroRouter(dirname(__FILE__, 2) . '/templates');
 
-    // Set the path to partials, relative to the templates path.
-    $router->setPartialsPath('partials-path');
+    // Prefix the include path with a directory, relative to the templates path.
+    $router->setIncludePrefix('partials-path');
 
     $router->dispatch();
 
@@ -43,7 +43,7 @@ try {
 ```php
 <?php
 
-$router->includePartial('partial', ['variableName' => 'value']);
+$router->include('partial', ['variableName' => 'value']);
 
 ```
 
