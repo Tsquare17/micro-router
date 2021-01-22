@@ -166,6 +166,7 @@ class MicroRouter
             function render($route, $router, $data = [])
             {
                 extract($data, EXTR_OVERWRITE);
+                unset($data);
 
                 include $route;
             }
