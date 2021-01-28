@@ -44,7 +44,7 @@ class MicroRouter
     public function __construct(string $templatesPath)
     {
         if (!is_dir($templatesPath)) {
-            throw new InvalidPathException('View path not found');
+            throw new InvalidPathException('Templates path not found');
         }
 
         $this->templatesPath = rtrim($templatesPath, '/') . '/';
@@ -55,14 +55,14 @@ class MicroRouter
 
         $validPath = $this->validateRequestedPath($route);
 
-        if ($route && !$validPath) {
-            header('HTTP/1.0 403 Forbidden');
-            throw new InvalidPathException('Invalid request');
-        }
-
         if (!$route) {
             header('HTTP/1.0 404 Not Found');
             throw new FileNotFoundException('404 - File not found');
+        }
+
+        if (!$validPath) {
+            header('HTTP/1.0 403 Forbidden');
+            throw new InvalidPathException('Invalid request');
         }
 
         $this->route = $route;
