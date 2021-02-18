@@ -2,6 +2,9 @@
 
 ### A minimal PHP router for pretty URLs and file organization during prototyping.
 
+#### Requirements
+- PHP 7.1
+
 #### Installation
 
     composer require tsquare\micro-router
