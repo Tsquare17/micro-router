@@ -11,9 +11,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Tsquare\\": "src/",
+      "Tsquare\\Router\\": "src/",
       "Tsquare\\Tests\\": "tests/"
-    }
+    },
+    "files": [
+      "src/functions.php"
+    ]
   },
   "require": {
     "php": "^7.1 || ^8.0"

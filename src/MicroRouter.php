@@ -1,9 +1,9 @@
 <?php
 
-namespace Tsquare;
+namespace Tsquare\Router;
 
-use Tsquare\Exception\FileNotFoundException;
-use Tsquare\Exception\InvalidPathException;
+use Tsquare\Router\Exception\FileNotFoundException;
+use Tsquare\Router\Exception\InvalidPathException;
 
 /**
  * Class MicroRouter
@@ -24,16 +24,16 @@ class MicroRouter
     protected $uri;
 
     /**
-     * Prefix the MicroRouter::prefix() with a directory within the templates path.
+     * Prefix MicroRouter::include() with a directory within the templates path.
      * @var $includePrefix
      */
-    protected $includePrefix = null;
+    protected $includePrefix;
 
     /**
      * The route to render.
      * @var $route
      */
-    protected $route = null;
+    protected $route;
 
     /**
      * MicroRouter constructor.
@@ -162,16 +162,6 @@ class MicroRouter
      */
     public function dispatch($data = []): void
     {
-        if (!function_exists('Tsquare\\render')) {
-            function render($route, $router, $data = [])
-            {
-                extract($data, EXTR_OVERWRITE);
-                unset($data);
-
-                include $route;
-            }
-        }
-
         render($this->route, $this, $data);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsquare\Exception;
+namespace Tsquare\Router\Exception;
 
 use InvalidArgumentException;
 
