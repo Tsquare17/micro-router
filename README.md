@@ -50,7 +50,7 @@ $router->include('partial', ['variableName' => 'value']);
 
 ```
 
-- Your may need to include rewrite rules in .htaccess.
+- You may need to include rewrite rules in .htaccess.
 ```apacheconfig
 RewriteEngine On
 RewriteBase /
