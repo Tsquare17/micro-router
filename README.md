@@ -18,9 +18,9 @@
 
 include '../vendor/autoload.php';
 
-use Tsquare\Exception\FileNotFoundException;
-use Tsquare\Exception\InvalidPathException;
-use Tsquare\MicroRouter;
+use Tsquare\Router\Exception\FileNotFoundException;
+use Tsquare\Router\Exception\InvalidPathException;
+use Tsquare\Router\MicroRouter;
 
 try {
 
