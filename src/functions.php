@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsquare\Router;
+namespace Tsquare\MicroRouter;
 
 /**
  * Render template.

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tsquare\Router;
+namespace Tsquare\MicroRouter;
 
-use Tsquare\Router\Exception\FileNotFoundException;
-use Tsquare\Router\Exception\InvalidPathException;
+use Tsquare\MicroRouter\Exception\FileNotFoundException;
+use Tsquare\MicroRouter\Exception\InvalidPathException;
 
 /**
  * Class MicroRouter

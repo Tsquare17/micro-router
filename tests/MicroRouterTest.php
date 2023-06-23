@@ -3,9 +3,9 @@
 namespace Tsquare\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Tsquare\Router\MicroRouter;
-use Tsquare\Router\Exception\InvalidPathException;
-use Tsquare\Router\Exception\FileNotFoundException;
+use Tsquare\MicroRouter\MicroRouter;
+use Tsquare\MicroRouter\Exception\InvalidPathException;
+use Tsquare\MicroRouter\Exception\FileNotFoundException;
 
 class MicroRouterTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsquare\Router\Exception;
+namespace Tsquare\MicroRouter\Exception;
 
 use InvalidArgumentException;
 
@@ -10,5 +10,4 @@ use InvalidArgumentException;
  */
 class InvalidPathException extends InvalidArgumentException
 {
-
 }

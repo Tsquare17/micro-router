@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsquare\Router\Exception;
+namespace Tsquare\MicroRouter\Exception;
 
 use Exception;
 
@@ -10,5 +10,4 @@ use Exception;
  */
 class FileNotFoundException extends Exception
 {
-
 }
